@@ -1,6 +1,6 @@
 #!/bin/bash
-#Author Rachid Oudouch
-#42login : roudouch
+#Author: Ilyass Ezzam
+#42login : iezzam
 
 clearAllAppsData() {
     printf "\n\n\033[32m Cleaning... \n\033[0m\n\n"

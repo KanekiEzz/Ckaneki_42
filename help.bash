@@ -1,6 +1,6 @@
 #!/bin/bash
-#Author Rachid Oudouch
-#42login : roudouch
+#Author Ilyass Ezzam
+#42login : iezzam
 
 function deleteService() {
     shouldRemove='0'
@@ -88,10 +88,13 @@ then
     fi
 else
     echo -e "\033[33m
-                    ╔╗ ┬  ┌─┐┌─┐┌─┐┬ ┬ 
-                    ╠╩╗│  ├┤ ├─┤│  ├─┤
-                    ╚═╝┴─┘└─┘┴ ┴└─┘┴ ┴
-                    Created by \033[0;32mRachid Oudouch
+
+        █  ▄ ▗▞▀▜▌▄▄▄▄  ▗▞▀▚▖█  ▄ ▄ 
+        █▄▀  ▝▚▄▟▌█   █ ▐▛▀▀▘█▄▀  ▄ 
+        █ ▀▄      █   █ ▝▚▄▄▖█ ▀▄ █ 
+        █  █                 █  █ █ 
+                                    
+        Created by \033[0;32mIlyass Ezzam
     \033[0m"
     printf "\n\033[0;33mBleach will always run when you open the terminal, you don't need to do anything.\033[0m"
     printf "\n\n\033[0;35m------- Command line you can run -------\033[0m\n\n"

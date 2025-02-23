@@ -1,6 +1,6 @@
 #!/bin/bash
-#Author Rachid Oudouch
-#42login : roudouch
+#Author Ilyass Ezzam
+#42login : iezzam
 
 StorageBefore=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
 if [ "$StorageBefore" == "0BB" ];
@@ -8,7 +8,7 @@ then
     StorageBefore="0B"
 fi
 
-printf "\n\033[32mBleach is cleaning your computer, pls wait...\033[0m\n"
+printf "\n\033[32mKaneki is cleaning your computer, pls wait...\033[0m\n"
 
 clean42Caches() {
     /bin/rm -rf ~/Library/*.42* &>/dev/null

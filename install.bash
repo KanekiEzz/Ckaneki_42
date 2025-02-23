@@ -1,6 +1,6 @@
 #!/bin/bash
-#Author Rachid Oudouch
-#42login : roudouch
+#Author Ilyass Ezzam
+#42login : iezzam
 
 startInstall() {
     printf "\nInstalling...\n\n";
@@ -30,10 +30,13 @@ startInstall() {
 }
 
 echo -e "\033[33m
-            ╔╗ ┬  ┌─┐┌─┐┌─┐┬ ┬ 
-            ╠╩╗│  ├┤ ├─┤│  ├─┤
-            ╚═╝┴─┘└─┘┴ ┴└─┘┴ ┴
-         Created by \033[0;32mRachid Oudouch
+            
+        █  ▄ ▗▞▀▜▌▄▄▄▄  ▗▞▀▚▖█  ▄ ▄ 
+        █▄▀  ▝▚▄▟▌█   █ ▐▛▀▀▘█▄▀  ▄ 
+        █ ▀▄      █   █ ▝▚▄▄▖█ ▀▄ █ 
+        █  █                 █  █ █ 
+        
+        Created by \033[0;32mIlyass Ezzam
 \033[0m
 "
 

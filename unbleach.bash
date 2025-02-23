@@ -1,6 +1,6 @@
 #!/bin/bash
-#Author Rachid Oudouch
-#42login : roudouch
+#Author Ilyass Ezzam
+#42login : iezzam
 
 path=$(pwd)
 shouldRemove='0'
