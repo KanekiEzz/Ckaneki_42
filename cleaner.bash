@@ -3,8 +3,7 @@
 #42login : iezzam
 
 StorageBefore=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
-if [ "$StorageBefore" == "0BB" ];
-then
+if [ "$StorageBefore" == "0BB" ]; then
     StorageBefore="0B"
 fi
 
@@ -16,10 +15,6 @@ clean42Caches() {
     /bin/rm -rf ~/.zcompdump* &>/dev/null
     /bin/rm -rf ~/.cocoapods.42_cache_bak* &>/dev/null
 }
-
-# cleanTrash() {
-#     /bin/rm -rf ~/.Trash/* &>/dev/null
-# }
 
 cleanGeneralCacheFiles() {
     /bin/rm -rf ~/Library/Caches/* &>/dev/null
@@ -49,23 +44,45 @@ cleanTmpDownloadsFiles() {
 }
 
 cleanPoolThings() {
-    /bin/rm -rf ~/Desktop/Piscine\ Rules\ *.mp4
-    /bin/rm -rf ~/Desktop/PLAY_ME.webloc
+    /bin/rm -rf ~/Desktop/Piscine\ Rules\ *.mp4 &>/dev/null
+    /bin/rm -rf ~/Desktop/PLAY_ME.webloc &>/dev/null
+}
+
+cleanFlatpakAppCaches() {
+    flatpak_base="$HOME/.var/app"
+
+    if [ -d "$flatpak_base" ]; then
+        for app_dir in "$flatpak_base"/*; do
+            cache_path="$app_dir/cache"
+            if [ -d "$cache_path" ]; then
+                app_name=$(basename "$app_dir")
+                echo "🧹 Clearing cache for: $app_name"
+                rm -rf "$cache_path"/* &>/dev/null
+            fi
+        done
+    fi
 }
 
 
-clean42Caches;
-# cleanTrash;
-cleanGeneralCacheFiles;
-cleanAppsCaches;
-cleanDS_StoreFiles;
-cleanTmpDownloadsFiles;
-cleanPoolThings
+cleanUserCacheDir() {
+    if [ -d "$HOME/.cache" ]; then
+        echo "🧹 Clearing ~/.cache directory..."
+        rm -rf "$HOME/.cache"/* &>/dev/null
+    fi
+}
 
+# Run all cleaning functions
+clean42Caches
+cleanGeneralCacheFiles
+cleanAppsCaches
+cleanDS_StoreFiles
+cleanTmpDownloadsFiles
+cleanPoolThings
+cleanFlatpakAppCaches
+cleanUserCacheDir
 
 Storage=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
-if [ "$Storage" == "0BB" ];
-then
+if [ "$Storage" == "0BB" ]; then
     Storage="0B"
 fi
 
