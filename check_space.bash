@@ -1,15 +1,18 @@
 #!/bin/bash
-#Author Ilyass Ezzam
-#42login : iezzam
+# Author  : Ilyass Ezzam
+# 42login : iezzam
 
 check_storage() {
-    Storage=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
-    if [ "$Storage" == "0BB" ];
-    then
-        Storage="0B"
-    fi
+    storage=$(df -h "$HOME" | awk 'NR==2 {print $4}' | tr 'i' 'B')
+    [[ "$storage" == "0BB" ]] && storage="0B"
 
-    printf "\n\n\033[32m [ Available storage :  $Storage  ]\n\033[0m\n\n"
+    echo -e "\n"
+    echo -e "┌──────────────────────────────┐"
+    echo -e "│   💾  STORAGE CHECK TOOL  💾 │"
+    echo -e "└──────────────────────────────┘"
+    echo -e "        📂 Home Directory"
+    echo -e "\033[1;32m        ➜ Available: $storage ✅\033[0m"
+    echo -e "\n"
 }
 
-check_storage;
+check_storage

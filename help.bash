@@ -1,112 +1,103 @@
 #!/bin/bash
-#Author Ilyass Ezzam
-#42login : iezzam
+# Author  : Ilyass Ezzam
+# 42login : iezzam
 
 function deleteService() {
     shouldRemove='0'
     while read -r line
     do
-        if [[ ! $line =~ $1 ]]
-        then
-            if [ $shouldRemove == '0' ]
-            then
+        if [[ ! $line =~ $1 ]]; then
+            if [ $shouldRemove == '0' ]; then
                 echo "$line"
             fi
         else
-            if [ $shouldRemove == '0' ]
-            then
+            if [ $shouldRemove == '0' ]; then
                 shouldRemove='1'
-            elif [ $shouldRemove == '1' ]
-            then
+            elif [ $shouldRemove == '1' ]; then
                 shouldRemove='0'
             fi
         fi
     done < ~/.zshrc > O1234567899876543210Darkmode
 
-    $(cat O1234567899876543210Darkmode > ~/.zshrc)
-    $(rm -rf O1234567899876543210Darkmode)
+    cat O1234567899876543210Darkmode > ~/.zshrc
+    rm -rf O1234567899876543210Darkmode
 }
 
-
-if [ "$1" == "active" ]
-then
-    if [ "$2" == "dark-mode" ]
-    then
-        alreadyInstall=$(grep "####10108bleach-Dark-mode10108####" < ~/.zshrc)
-        if [  ${#alreadyInstall} == 0 ]
-        then
-            $(osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to true')
-            echo -e "\n####10108bleach-Dark-mode10108####" >> ~/.zshrc
-            echo -e "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to true'" >> ~/.zshrc
-            echo -e "####10108bleach-Dark-mode10108####" >> ~/.zshrc
-            printf "\n\033[32mDark-mode activated ✅ \033[0m\n\n"
+if [ "$1" == "active" ]; then
+    if [ "$2" == "dark-mode" ]; then
+        alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < ~/.zshrc)
+        if [ ${#alreadyInstall} == 0 ]; then
+            osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to true'
+            {
+                echo -e "\n####kaneki-Dark-mode10108####"
+                echo -e "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to true'"
+                echo -e "####kaneki-Dark-mode10108####"
+            } >> ~/.zshrc
+            echo -e "\n\033[1;32m🌙 Dark-mode activated ✅\033[0m\n"
         else
-            printf "\n\033[0;31mDark-mode is already activated!\033[0m\n\n"
+            echo -e "\n\033[1;31m⚠️ Dark-mode is already activated!\033[0m\n"
         fi
     fi
 
-    if [ "$2" == "code" ]
-    then
-        alreadyInstall=$(grep "####10108bleach-code10108####" < ~/.zshrc)
-        if [  ${#alreadyInstall} == 0 ]
-        then
-            echo -e "\n####10108bleach-code10108####" >> ~/.zshrc
-            echo -e "alias code=\"/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/./code\"" >> ~/.zshrc
-            echo -e "####10108bleach-code10108####" >> ~/.zshrc
-            printf "\n\033[32mcode command activated ✅ \033[0m"
-            printf "\033[0;31m: you need to reopen your terminal to apply the new changes.\033[0m\n\n"
+    if [ "$2" == "code" ]; then
+        alreadyInstall=$(grep "####kaneki-code10108####" < ~/.zshrc)
+        if [ ${#alreadyInstall} == 0 ]; then
+            {
+                echo -e "\n####kaneki-code10108####"
+                echo -e "alias code=\"/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/./code\""
+                echo -e "####kaneki-code10108####"
+            } >> ~/.zshrc
+            echo -e "\n\033[1;32m💻 code command activated ✅\033[0m"
+            echo -e "\033[1;31m(ℹ️ Reopen terminal to apply changes)\033[0m\n"
         else
-            printf "\n\033[0;31mcode command is already activated!\033[0m\n\n"
+            echo -e "\n\033[1;31m⚠️ code command is already activated!\033[0m\n"
         fi
     fi
 
-elif [ "$1" == "deactivate" ]
-then
-    if [ "$2" == "dark-mode" ]
-    then
-        alreadyInstall=$(grep "####10108bleach-Dark-mode10108####" < ~/.zshrc)
-        if [  ${#alreadyInstall} == 0 ]
-        then
-            printf "\n\033[0;31mDark-mode is not activated!\033[0m\n\n"
+elif [ "$1" == "deactivate" ]; then
+    if [ "$2" == "dark-mode" ]; then
+        alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < ~/.zshrc)
+        if [ ${#alreadyInstall} == 0 ]; then
+            echo -e "\n\033[1;31m⚠️ Dark-mode is not activated!\033[0m\n"
         else
-            $(osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to false')
-            deleteService "####10108bleach-Dark-mode10108####"
-            printf "\n\033[32mDark-mode deactivated ✅ \033[0m\n\n"
+            osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to false'
+            deleteService "####kaneki-Dark-mode10108####"
+            echo -e "\n\033[1;32m🌞 Dark-mode deactivated ✅\033[0m\n"
         fi
     fi
-    if [ "$2" == "code" ]
-    then
-        alreadyInstall=$(grep "####10108bleach-code10108####" < ~/.zshrc)
-        if [  ${#alreadyInstall} == 0 ]
-        then
-            printf "\n\033[0;31mcode command is not activated!\033[0m\n\n"
+
+    if [ "$2" == "code" ]; then
+        alreadyInstall=$(grep "####kaneki-code10108####" < ~/.zshrc)
+        if [ ${#alreadyInstall} == 0 ]; then
+            echo -e "\n\033[1;31m⚠️ code command is not activated!\033[0m\n"
         else
-            deleteService "####10108bleach-code10108####"
-            printf "\n\033[32mcode command deactivated ✅ \033[0m"
-            printf "\033[0;31m: you need to reopen your terminal to apply the new changes.\033[0m\n\n"
+            deleteService "####kaneki-code10108####"
+            echo -e "\n\033[1;32m🗑️ code command deactivated ✅\033[0m"
+            echo -e "\033[1;31m(ℹ️ Reopen terminal to apply changes)\033[0m\n"
         fi
     fi
+
 else
-    echo -e "\033[33m
+    echo -e "\033[1;35m
 
         █  ▄ ▗▞▀▜▌▄▄▄▄  ▗▞▀▚▖█  ▄ ▄ 
         █▄▀  ▝▚▄▟▌█   █ ▐▛▀▀▘█▄▀  ▄ 
         █ ▀▄      █   █ ▝▚▄▄▖█ ▀▄ █ 
         █  █                 █  █ █ 
                                     
-        Created by \033[0;32mIlyass Ezzam
-    \033[0m"
-    printf "\n\033[0;33mBleach will always run when you open the terminal, you don't need to do anything.\033[0m"
-    printf "\n\n\033[0;35m------- Command line you can run -------\033[0m\n\n"
-    printf "|- To clean your computer: \033[4;36mbclean\n\n\033[0m"
-    printf "|- To run docker: \033[4;36mbdocker\n\n\033[0m"
-    printf "|- To clean all the applications data in your computer: \033[4;36mbcleanfull \033[0m be careful with this command.\n\n"
-    printf "|- To see your free space: \033[4;36mstorage\n\n\033[0m"
-    printf "|- To Uninstall Bleach: \033[4;36munbleach\n\n\033[0m"
-    printf "|- To active dark-mode: \033[4;36mbleach active dark-mode\n\n\033[0m"
-    printf "|- To deactivate dark-mode: \033[4;36mbleach deactivate dark-mode\n\n\033[0m"
-    printf "|- To active \"code\" command (Vscode): \033[4;36mbleach active code\n\n\033[0m"
-    printf "|- To deactivate \"code\" command: \033[4;36mbleach deactivate code\n\n\033[0m"
-    printf "|- for help: \033[4;36mbleach\n\n\033[0m"
+    \033[0;32mCreated by Ilyass Ezzam\033[0m
+    "
 
+    echo -e "\033[0;33m✨ kaneki runs automatically when you open the terminal.\033[0m"
+    echo -e "\n\033[1;35m------ 🛠️ Available Commands 🛠️ ------\033[0m\n"
+    echo -e "   🧹 Clean computer              →  \033[4;36mkclean\033[0m\n"
+    echo -e "   🐳 Run docker                  →  \033[4;36mkdocker\033[0m\n"
+    echo -e "   💣 Full clean (dangerous)      →  \033[4;36mkcleanfull\033[0m\n"
+    echo -e "   💾 Show free space             →  \033[4;36mstorage\033[0m\n"
+    echo -e "   ❌ Uninstall kaneki            →  \033[4;36munkaneki\033[0m\n"
+    echo -e "   🌙 Activate dark-mode          →  \033[4;36mkaneki active dark-mode\033[0m\n"
+    echo -e "   🌞 Deactivate dark-mode        →  \033[4;36mkaneki deactivate dark-mode\033[0m\n"
+    echo -e "   💻 Activate 'code' command     →  \033[4;36mkaneki active code\033[0m\n"
+    echo -e "   🗑️ Deactivate 'code' command   →  \033[4;36mkaneki deactivate code\033[0m\n"
+    echo -e "   📖 Show help                   →  \033[4;36mkaneki\033[0m\n"
 fi

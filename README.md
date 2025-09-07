@@ -1,4 +1,4 @@
-# bleach
+# kaneki
 For 42Network schools only, script to free up some space :)
 
 ## How to use ?
@@ -9,8 +9,8 @@ bash install.bash
 
 then you must reopen your terminal :)
 
-for more info about how to use bleach
+for more info about how to use kaneki
 ```bash
-bleach
+kaneki
 ```
 ![info](https://raw.githubusercontent.com/Ra-Wo/bleach_42/master/screenshots/info.png)

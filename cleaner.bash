@@ -1,13 +1,17 @@
 #!/bin/bash
-#Author Ilyass Ezzam
-#42login : iezzam
+# Author  : Ilyass Ezzam
+# 42login : iezzam
 
-StorageBefore=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
-if [ "$StorageBefore" == "0BB" ]; then
-    StorageBefore="0B"
-fi
+StorageBefore=$(df -h "$HOME" | awk 'NR==2 {print $4}' | tr 'i' 'B')
+[[ "$StorageBefore" == "0BB" ]] && StorageBefore="0B"
 
-printf "\n\033[32mKaneki is cleaning your computer, pls wait...\033[0m\n"
+echo -e "\n"
+echo -e "┌───────────────────────────────────────┐"
+echo -e "│   🧹  KANEKI'S SUPER CLEANER v2.0  🧹 │"
+echo -e "└───────────────────────────────────────┘"
+echo -e "   💻 Cleaning caches and temp files..."
+echo -e ""
+echo -e ""
 
 clean42Caches() {
     /bin/rm -rf ~/Library/*.42* &>/dev/null
@@ -56,17 +60,16 @@ cleanFlatpakAppCaches() {
             cache_path="$app_dir/cache"
             if [ -d "$cache_path" ]; then
                 app_name=$(basename "$app_dir")
-                echo "🧹 Clearing cache for: $app_name"
+                echo -e "   🧽 Clearing cache for: \033[1;36m$app_name\033[0m"
                 rm -rf "$cache_path"/* &>/dev/null
             fi
         done
     fi
 }
 
-
 cleanUserCacheDir() {
     if [ -d "$HOME/.cache" ]; then
-        echo "🧹 Clearing ~/.cache directory..."
+        echo -e "   🧽 Clearing \033[1;36m~/.cache\033[0m ..."
         rm -rf "$HOME/.cache"/* &>/dev/null
     fi
 }
@@ -81,10 +84,13 @@ cleanPoolThings
 cleanFlatpakAppCaches
 cleanUserCacheDir
 
-Storage=$(df -h "$HOME" | grep "$HOME" | awk '{print($4)}' | tr 'i' 'B')
-if [ "$Storage" == "0BB" ]; then
-    Storage="0B"
-fi
+Storage=$(df -h "$HOME" | awk 'NR==2 {print $4}' | tr 'i' 'B')
+[[ "$Storage" == "0BB" ]] && Storage="0B"
 
-printf "\n\033[32m[ storage :  \033[0;31mbefore= $StorageBefore  \033[32m=> \033[0m"
-printf "\033[32mafter= $Storage  ]\033[0m\n\n"
+echo -e "\n"
+echo -e "┌─────────────────────────────┐"
+echo -e "│   📊  STORAGE COMPARISON    │"
+echo -e "└─────────────────────────────┘"
+echo -e "   🔴 Before : \033[1;31m$StorageBefore\033[0m"
+echo -e "   🟢 After  : \033[1;32m$Storage\033[0m"
+echo -e ""
