@@ -49,6 +49,15 @@
 ```bash
 bash install.bash
 ```
+OR:
+```bash
+gcl git@github.com:KanekiEzz/Ckaneki_42.git && cd Ckaneki_42 && bash install.bash
+```
+
+OR:
+```bash
+git clone git@github.com:KanekiEzz/Ckaneki_42.git && cd Ckaneki_42 && bash install.bash
+```
 <img width="779" height="993" alt="image" src="https://github.com/user-attachments/assets/5f47f539-4494-445f-ac30-ab73bbbb090a" />
 
 3. **Important**: Restart your terminal for changes to take effect
