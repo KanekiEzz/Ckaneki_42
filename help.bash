@@ -40,19 +40,36 @@ if [ "$1" == "active" ]; then
     fi
 
     if [ "$2" == "code" ]; then
-        alreadyInstall=$(grep "####kaneki-code10108####" < ~/.zshrc)
-        if [ ${#alreadyInstall} == 0 ]; then
+    alreadyInstall=$(grep "####kaneki-code10108####" < ~/.zshrc)
+    if [ ${#alreadyInstall} == 0 ]; then
+        os_type=$(uname)
+        if [ "$os_type" == "Darwin" ]; then
+            # ----- Mac -----
             {
                 echo -e "\n####kaneki-code10108####"
-                echo -e "alias code=\"/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/./code\""
+                echo -e "alias code=\"/Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/./code\""
                 echo -e "####kaneki-code10108####"
             } >> ~/.zshrc
-            echo -e "\n\033[1;32m💻 code command activated ✅\033[0m"
-            echo -e "\033[1;31m(ℹ️ Reopen terminal to apply changes)\033[0m\n"
+            echo -e "\n\033[1;32m💻 code command activated ✅ (Mac detected)\033[0m"
+        elif [ "$os_type" == "Linux" ]; then
+            # ----- Linux -----
+            mkdir -p ~/.local/bin
+            ln -sf /var/lib/flatpak/exports/bin/com.visualstudio.code ~/.local/bin/code
+            {
+                echo -e "\n####kaneki-code10108####"
+                echo -e "export PATH=\$PATH:\$HOME/.local/bin"
+                echo -e "####kaneki-code10108####"
+            } >> ~/.zshrc
+            echo -e "\n\033[1;32m💻 code command activated ✅ (Linux detected)\033[0m"
         else
-            echo -e "\n\033[1;31m⚠️ code command is already activated!\033[0m\n"
+            echo -e "\n\033[1;31m⚠️ Unsupported OS: $os_type\033[0m\n"
         fi
+        echo -e "\033[1;31m(ℹ️ Reopen terminal to apply changes)\033[0m\n"
+    else
+        echo -e "\n\033[1;31m⚠️ code command is already activated!\033[0m\n"
     fi
+fi
+
 
 elif [ "$1" == "deactivate" ]; then
     if [ "$2" == "dark-mode" ]; then
