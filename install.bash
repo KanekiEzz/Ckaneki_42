@@ -2,11 +2,21 @@
 # Author  : Ilyass Ezzam
 # 42login : iezzam
 
+# Detect user shell config file
+if [[ $SHELL == *"zsh" ]]; then
+    SHELL_RC="$HOME/.zshrc"
+elif [[ $SHELL == *"bash" ]]; then
+    SHELL_RC="$HOME/.bashrc"
+else
+    # fallback (default zsh if unknown)
+    SHELL_RC="$HOME/.zshrc"
+fi
+
 startInstall() {
     echo -e "\n⚙️  ${cyan}Installing...${reset}\n"
     path=$(pwd)
     kanekiPath="$path/cleaner.bash"
-    alreadyInstall=$(grep "####10108kaneki10108####" < ~/.zshrc)
+    alreadyInstall=$(grep "####10108kaneki10108####" < "$SHELL_RC")
 
     if [ ${#alreadyInstall} == 0 ]; then
         {
@@ -19,12 +29,12 @@ startInstall() {
             echo "alias kcleanfull=\"bash $path/cleanAllAppsData.bash\""
             [ "$1" == '1' ] && echo "/bin/bash $kanekiPath"
             echo "####10108kaneki10108####"
-        } >> ~/.zshrc
+        } >> "$SHELL_RC"
 
-        echo -e "${green}✅ Installed successfully!${reset}"
+        echo -e "${green}✅ Installed successfully in ${yellow}$SHELL_RC${reset}"
         echo -e "\n${red}⚠️  Please reopen terminal to apply changes.${reset}\n"
     else
-        echo -e "${green}✅ Already installed!${reset}\n"
+        echo -e "${green}✅ Already installed in ${yellow}$SHELL_RC${reset}\n"
     fi
 }
 

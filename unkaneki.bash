@@ -2,6 +2,16 @@
 # Author  : Ilyass Ezzam
 # 42login : iezzam
 
+# Detect user shell config file
+if [[ $SHELL == *"zsh" ]]; then
+    SHELL_RC="$HOME/.zshrc"
+elif [[ $SHELL == *"bash" ]]; then
+    SHELL_RC="$HOME/.bashrc"
+else
+    # fallback (default zsh if unknown)
+    SHELL_RC="$HOME/.zshrc"
+fi
+
 # Colors
 red=$'\033[1;31m'
 yellow=$'\033[0;33m'
@@ -12,7 +22,7 @@ reset=$'\033[0m'
 marker="####10108kaneki10108####"
 tmpfile="O1234567899876543210"
 
-alreadyInstall=$(grep "$marker" < ~/.zshrc)
+alreadyInstall=$(grep "$marker" < "$SHELL_RC")
 
 if [ ${#alreadyInstall} -eq 0 ]; then
     echo -e "\n${red}❌ Ckaneki is not installed!${reset}\n"

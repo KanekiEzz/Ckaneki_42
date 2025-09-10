@@ -2,6 +2,16 @@
 # Author  : Ilyass Ezzam
 # 42login : iezzam
 
+# Detect user shell config file
+if [[ $SHELL == *"zsh" ]]; then
+    SHELL_RC="$HOME/.zshrc"
+elif [[ $SHELL == *"bash" ]]; then
+    SHELL_RC="$HOME/.bashrc"
+else
+    # fallback (default zsh if unknown)
+    SHELL_RC="$HOME/.zshrc"
+fi
+
 function deleteService() {
     shouldRemove='0'
     while read -r line
@@ -17,22 +27,22 @@ function deleteService() {
                 shouldRemove='0'
             fi
         fi
-    done < ~/.zshrc > O1234567899876543210Darkmode
+    done < "$SHELL_RC" > O1234567899876543210Darkmode
 
-    cat O1234567899876543210Darkmode > ~/.zshrc
+    cat O1234567899876543210Darkmode > "$SHELL_RC"
     rm -rf O1234567899876543210Darkmode
 }
 
 if [ "$1" == "active" ]; then
     if [ "$2" == "dark-mode" ]; then
-        alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < ~/.zshrc)
+        alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < "$SHELL_RC")
         if [ ${#alreadyInstall} == 0 ]; then
             osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to true'
             {
                 echo -e "\n####kaneki-Dark-mode10108####"
                 echo -e "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to true'"
                 echo -e "####kaneki-Dark-mode10108####"
-            } >> ~/.zshrc
+            } >> "$SHELL_RC"
             echo -e "\n\033[1;32m🌙 Dark-mode activated ✅\033[0m\n"
         else
             echo -e "\n\033[1;31m⚠️ Dark-mode is already activated!\033[0m\n"
@@ -40,7 +50,7 @@ if [ "$1" == "active" ]; then
     fi
 
     if [ "$2" == "code" ]; then
-    alreadyInstall=$(grep "####kaneki-code10108####" < ~/.zshrc)
+    alreadyInstall=$(grep "####kaneki-code10108####" < "$SHELL_RC")
     if [ ${#alreadyInstall} == 0 ]; then
         os_type=$(uname)
         if [ "$os_type" == "Darwin" ]; then
@@ -49,7 +59,7 @@ if [ "$1" == "active" ]; then
                 echo -e "\n####kaneki-code10108####"
                 echo -e "alias code=\"/Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/./code\""
                 echo -e "####kaneki-code10108####"
-            } >> ~/.zshrc
+            } >> "$SHELL_RC"
             echo -e "\n\033[1;32m💻 code command activated ✅ (Mac detected)\033[0m"
         elif [ "$os_type" == "Linux" ]; then
             # ----- Linux -----
@@ -59,7 +69,7 @@ if [ "$1" == "active" ]; then
                 echo -e "\n####kaneki-code10108####"
                 echo -e "export PATH=\$PATH:\$HOME/.local/bin"
                 echo -e "####kaneki-code10108####"
-            } >> ~/.zshrc
+            } >> "$SHELL_RC"
             echo -e "\n\033[1;32m💻 code command activated ✅ (Linux detected)\033[0m"
         else
             echo -e "\n\033[1;31m⚠️ Unsupported OS: $os_type\033[0m\n"
@@ -73,7 +83,7 @@ fi
 
 elif [ "$1" == "deactivate" ]; then
     if [ "$2" == "dark-mode" ]; then
-        alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < ~/.zshrc)
+        alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < "$SHELL_RC")
         if [ ${#alreadyInstall} == 0 ]; then
             echo -e "\n\033[1;31m⚠️ Dark-mode is not activated!\033[0m\n"
         else
@@ -84,7 +94,7 @@ elif [ "$1" == "deactivate" ]; then
     fi
 
     if [ "$2" == "code" ]; then
-        alreadyInstall=$(grep "####kaneki-code10108####" < ~/.zshrc)
+        alreadyInstall=$(grep "####kaneki-code10108####" < "$SHELL_RC")
         if [ ${#alreadyInstall} == 0 ]; then
             echo -e "\n\033[1;31m⚠️ code command is not activated!\033[0m\n"
         else
