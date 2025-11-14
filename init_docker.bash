@@ -24,16 +24,39 @@ ${green}🐳  DOCKER RESET SCRIPT  🐳${reset}
 ${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${reset}
 "
 
-# Uninstall docker, docker-compose and docker-machine if they are installed with brew
-brew uninstall -f docker docker-compose docker-machine &>/dev/null ;:
+# Ask before uninstalling Docker packages installed via Homebrew
+echo "${blue}❓ Do you want to uninstall Docker, Docker Compose, and Docker Machine installed with Homebrew?${reset}"
+read -n1 -p "${blue}[${cyan}Y${blue}/${cyan}N${blue}] ${reset}" uninstall_choice
+echo ""
+
+if [ "$uninstall_choice" = "y" ] || [ "$uninstall_choice" = "Y" ]; then
+    echo "${red}🗑 Uninstalling Docker packages installed with Homebrew...${reset}"
+    brew uninstall -f docker docker-compose docker-machine &>/dev/null ;:
+else
+    echo "${green}⏭ Skipping Homebrew Docker uninstall.${reset}"
+fi
+
+
 
 # Check if Docker is installed with MSC and open MSC if not
 if [ ! -d "/Applications/Docker.app" ] && [ ! -d "~/Applications/Docker.app" ]; then
-    echo "${blue}👉 Please install ${cyan}Docker for Mac ${blue}from the MSC (Managed Software Center)${reset}"
-    open -a "Managed Software Center"
-    read -n1 -p "${blue}🔄 Press RETURN when you have successfully installed ${cyan}Docker for Mac${blue}...${reset}"
+    echo "${red}❌ Docker is not installed.${reset}"
+
+    read -n1 -p "${blue}❓ Do you want to install ${cyan}Docker for Mac${blue}? [${cyan}Y${blue}/${cyan}N${blue}] ${reset}" install_choice
     echo ""
+
+    if [ "$install_choice" = "y" ] || [ "$install_choice" = "Y" ]; then
+        echo "${blue}👉 Opening ${cyan}Managed Software Center${blue}...${reset}"
+        open -a "Managed Software Center"
+
+        read -n1 -p "${blue}🔄 Press RETURN after installing ${cyan}Docker for Mac${blue}...${reset}"
+        echo ""
+    else
+        echo "${red}🚫 Installation canceled. Docker is required to continue.${reset}"
+        exit 1
+    fi
 fi
+
 
 # Kill Docker if started, so it doesn't create files during the process
 pkill Docker
