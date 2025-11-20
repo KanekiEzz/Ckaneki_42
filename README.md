@@ -1,5 +1,5 @@
 
-# 🧹 Kaneki
+# 🧹 Kaneki clean
 
 **A powerful terminal utility for 42 Network schools to manage disk space and system maintenance.**
 
