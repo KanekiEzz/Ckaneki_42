@@ -2,7 +2,7 @@
 # Author: Ilyass Ezzam
 # 42login: iezzam
 
-# Detect user shell config file
+
 if [[ $SHELL == *"zsh" ]]; then
     SHELL_RC="$HOME/.zshrc"
 elif [[ $SHELL == *"bash" ]]; then
@@ -14,7 +14,6 @@ fi
 LOCAL_BIN="$HOME/.local/bin"
 mkdir -p "$LOCAL_BIN"
 
-# Path to git helper script (create this script separately)
 gitHelper="$PWD/git_helper.bash"
 
 startInstall() {
@@ -22,7 +21,6 @@ startInstall() {
     path=$(pwd)
     kanekiPath="$path/cleaner.bash"
 
-    # Add aliases if not already
     alreadyInstall=$(grep "####10108kaneki10108####" < "$SHELL_RC")
     if [ ${#alreadyInstall} == 0 ]; then
         {
@@ -39,11 +37,9 @@ startInstall() {
             echo "####10108kaneki10108####"
         } >> "$SHELL_RC"
 
-        # Auto-run kclean on terminal open
         grep -qxF "bash $kanekiPath" "$SHELL_RC" || echo "bash $kanekiPath" >> "$SHELL_RC"
     fi
 
-    # Create symlinks
     ln -sf "$kanekiPath" "$LOCAL_BIN/kclean"
     ln -sf "$path/help.bash" "$LOCAL_BIN/kaneki"
     ln -sf "$path/unkaneki.bash" "$LOCAL_BIN/unkaneki"
@@ -57,10 +53,8 @@ startInstall() {
 
     chmod +x "$LOCAL_BIN/"*
 
-    # Add ~/.local/bin to PATH if missing
     grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' "$SHELL_RC" || echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$SHELL_RC"
 
-    # Reload shell
     source "$SHELL_RC"
 
     echo -e "${green}✅ Installed successfully!${reset}"
@@ -72,10 +66,8 @@ forceReinstall() {
     path=$(pwd)
     kanekiPath="$path/cleaner.bash"
 
-    # Remove old aliases block
     sed -i '/####10108kaneki10108####/,/####10108kaneki10108####/d' "$SHELL_RC"
 
-    # Re-add aliases and auto-run kclean
     {
         echo $'\n\n\n####10108kaneki10108####'
         echo "alias storage=\"bash $path/check_space.bash\""
@@ -92,7 +84,6 @@ forceReinstall() {
 
     grep -qxF "bash $kanekiPath" "$SHELL_RC" || echo "bash $kanekiPath" >> "$SHELL_RC"
 
-    # Recreate symlinks
     ln -sf "$kanekiPath" "$LOCAL_BIN/kclean"
     ln -sf "$path/help.bash" "$LOCAL_BIN/kaneki"
     ln -sf "$path/unkaneki.bash" "$LOCAL_BIN/unkaneki"
@@ -114,14 +105,12 @@ forceReinstall() {
     echo -e "${green}⚡ Aliases, symlinks, and auto-run kclean are ready in all terminals.${reset}"
 }
 
-# Colors
 cyan=$'\033[0;36m'
 yellow=$'\033[0;33m'
 green=$'\033[1;32m'
 red=$'\033[1;31m'
 reset=$'\033[0m'
 
-# Banner
 echo -e "${yellow}
         █  ▄ ▗▞▀▜▌▄▄▄▄  ▗▞▀▚▖█  ▄ ▄ 
         █▄▀  ▝▚▄▟▌█   █ ▐▛▀▀▘█▄▀  ▄ 
@@ -131,7 +120,6 @@ echo -e "${yellow}
 ${cyan}       🚀  kaneki Installer by ${green}Ilyass Ezzam${reset}
 "
 
-# Menu
 echo -e "${cyan}[1]${green} 🚀 Full Install ${reset} ➤ (Install + auto-run on terminal startup)"
 echo -e "${cyan}[2]${yellow} ⚡ Just Install ${reset} ➤ (Use kaneki command manually)"
 echo -e "${cyan}[3]${yellow} 🔄 Reinstall / Update ${reset} ➤ (Rewrite kaneki aliases, symlinks, and auto-run)\n"

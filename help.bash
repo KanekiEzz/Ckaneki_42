@@ -2,13 +2,11 @@
 # Author  : Ilyass Ezzam
 # 42login : iezzam
 
-# Detect user shell config file
 if [[ $SHELL == *"zsh" ]]; then
     SHELL_RC="$HOME/.zshrc"
 elif [[ $SHELL == *"bash" ]]; then
     SHELL_RC="$HOME/.bashrc"
 else
-    # fallback (default zsh if unknown)
     SHELL_RC="$HOME/.zshrc"
 fi
 
@@ -54,7 +52,6 @@ if [ "$1" == "active" ]; then
         if [ ${#alreadyInstall} == 0 ]; then
             os_type=$(uname)
             if [ "$os_type" == "Darwin" ]; then
-                # ----- Mac -----
                 {
                     echo -e "\n####kaneki-code10108####"
                     echo -e "alias code=\"/Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/./code\""
@@ -62,7 +59,6 @@ if [ "$1" == "active" ]; then
                 } >> "$SHELL_RC"
                 echo -e "\n\033[1;32m💻 code command activated ✅ (Mac detected)\033[0m"
             elif [ "$os_type" == "Linux" ]; then
-                # ----- Linux -----
                 mkdir -p ~/.local/bin
                 ln -sf /var/lib/flatpak/exports/bin/com.visualstudio.code ~/.local/bin/code
                 {
@@ -104,13 +100,10 @@ elif [ "$1" == "deactivate" ]; then
     fi
 
 elif [ "$1" == "open" ]; then
-    # ----- Open selected apps only -----
     echo -e "\n📱 Select an app to open:\n"
 
-    # Hardcoded list of apps
     apps=("Settings" "Bluetooth" "Run Command (Alt+F2)" "Print R" "Discord" "Spotify" "Firefox" "Chrome" "Chromium" "Calculator" "Visual Studio Code" "VirtualBox")
 
-    # Show numbered list
     for i in "${!apps[@]}"; do
         printf "%3d) %s\n" $((i+1)) "${apps[$i]}"
     done

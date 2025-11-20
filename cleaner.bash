@@ -74,7 +74,6 @@ cleanUserCacheDir() {
     fi
 }
 
-# Run all cleaning functions
 clean42Caches
 cleanGeneralCacheFiles
 cleanAppsCaches

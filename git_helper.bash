@@ -1,9 +1,20 @@
 #!/bin/bash
-# Author: Kaneki
+# Author  : Ilyass Ezzam
+# 42login : iezzam
+# AuthorGit: Kaneki
 # Simple Git Upload & Pull Helper
 
-REPO_PATH="$PWD"    # Current repo
-BRANCH="main"       # Change to your default branch
+
+
+
+echo -e "
+${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${reset}
+${green}📤   imple Git Upload & Pull Helper  📤 ${reset}
+${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${reset}
+"
+
+REPO_PATH="$PWD"
+BRANCH="main"
 
 function Kupload() {
     echo -e "📤 Uploading changes to Git...\n"
@@ -35,7 +46,6 @@ function menu() {
     esac
 }
 
-# If argument passed, run directly
 if [[ $1 == "Kupload" ]]; then
     Kupload
 elif [[ $1 == "Kpull" ]]; then
