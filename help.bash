@@ -178,6 +178,7 @@ else
     echo -e "   🐳 Run docker                  →  \033[4;36mkdocker\033[0m\n"
     echo -e "   💣 Full clean (dangerous)      →  \033[4;36mkcleanfull\033[0m\n"
     echo -e "   💾 Show free space             →  \033[4;36mstorage\033[0m\n"
+    echo -e "   🌀 Install Oh My Zsh           →  \033[4;36mkzsh\033[0m\n"
     echo -e "   ❌ Uninstall kaneki            →  \033[4;36munkaneki\033[0m\n"
     echo -e "   🌙 Activate dark-mode          →  \033[4;36mkaneki active dark-mode\033[0m\n"
     echo -e "   🌞 Deactivate dark-mode        →  \033[4;36mkaneki deactivate dark-mode\033[0m\n"
