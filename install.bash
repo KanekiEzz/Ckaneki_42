@@ -15,7 +15,7 @@ LOCAL_BIN="$HOME/.local/bin"
 mkdir -p "$LOCAL_BIN"
 
 # Path to git helper script (create this script separately)
-gitHelper="$PWD/git_helper.sh"
+gitHelper="$PWD/git_helper.bash"
 
 startInstall() {
     echo -e "\n⚙️  Installing Kaneki aliases, symlinks, auto-run kclean...\n"
