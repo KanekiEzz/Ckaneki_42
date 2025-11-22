@@ -29,6 +29,7 @@ startInstall() {
             echo "alias kaneki=\"bash $path/help.bash\""
             echo "alias unkaneki=\"bash $path/unkaneki.bash\""
             echo "alias kdocker=\"bash $path/init_docker.bash\""
+            echo "alias kreset=\"bash $path/reste_setion.bash\""
             echo "alias kzsh=\"bash $path/install_oh-my-zsh.bash\""
             echo "alias kclean=\"bash $kanekiPath\""
             echo "alias kcleanfull=\"bash $path/cleanAllAppsData.bash\""
