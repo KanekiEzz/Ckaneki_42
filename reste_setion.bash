@@ -2,18 +2,31 @@
 # Author  : Ilyass Ezzam
 # 42login : iezzam
 
-echo "=== QUESTION 1 ==="
-read -p "Do you want to reset session 2? (yes/no): " q1
+blue=$'\033[0;34m'
+cyan=$'\033[1;96m'
+green=$'\033[1;32m'
+red=$'\033[1;31m'
+reset=$'\033[0;39m'
+
+echo -e "
+${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${reset}
+${green}        🔄 Linux RESET SCRIPT  ❌${reset}
+${cyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${reset}
+"
+
+echo -e "   ❌💾  ${red}kreset${reset}   →  ${cyan}reset session${reset}"
+echo -e "   🔄🖥️  ${yellow}kreboot${reset}  →  ${cyan}restart PC${reset}\n"
+
+read -p "Do you want to reset session ? (yes/no): "
 
 if [[ "$q1" == "yes" ]]; then
-    echo "[INFO] Resetting session 2..."
-    touch .reset
+    echo "[INFO] Resetting session ..."
+    touch "$HOME/.reset"
 else
     echo "[INFO] Session reset cancelled."
 fi
 
-echo "=== QUESTION 2 ==="
-read -p "Do you want to restart the PC? (yes/no): " q2
+read -p "Do you want to restart the PC? (yes/no): "
 
 if [[ "$q2" == "yes" ]]; then
     echo "[INFO] Restarting the PC..."
@@ -22,6 +35,6 @@ else
     echo "[INFO] Restart cancelled."
 fi
 
-touch "$HOME/reset"
+touch "$HOME/.reset"
 
 echo "Done!"

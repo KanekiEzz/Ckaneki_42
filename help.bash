@@ -75,7 +75,15 @@ if [ "$1" == "active" ]; then
             echo -e "\n\033[1;31m⚠️ code command is already activated!\033[0m\n"
         fi
     fi
-
+elif [ "$1" == "kreboot" ]; then
+    echo -e "\n\033[1;31m⚠️ WARNING: This will instantly restart your PC using kill -11 -1\033[0m"
+    read -p "Type 'YES' to continue: " confirm
+    if [[ "$confirm" == "YES" ]]; then
+        echo -e "\033[1;33mRebooting now...\033[0m"
+        kill -11 -1
+    else
+        echo -e "\033[1;32mCancelled.\033[0m"
+    fi
 elif [ "$1" == "deactivate" ]; then
     if [ "$2" == "dark-mode" ]; then
         alreadyInstall=$(grep "####kaneki-Dark-mode10108####" < "$SHELL_RC")
@@ -176,6 +184,7 @@ else
     echo -e "   🌀 Install Oh My Zsh                        →  \033[4;36mkzsh\033[0m\n"
     echo -e "   ❌ Uninstall kaneki                         →  \033[4;36munkaneki\033[0m\n"
     echo -e "   ❌ 🗑️ kreset (reset linux, dangerous)       →  \033[4;36mkreset\033[0m\n"
+    echo -e "   🔄💀 kreboot (restart PC, very dangerous)   →  \033[4;36mkreboot\033[0m\n"
     echo -e "   🌙 Activate dark-mode                       →  \033[4;36mkaneki active dark-mode\033[0m\n"
     echo -e "   🌞 Deactivate dark-mode                     →  \033[4;36mkaneki deactivate dark-mode\033[0m\n"
     echo -e "   💻 Activate 'code' command                  →  \033[4;36mkaneki active code\033[0m\n"
